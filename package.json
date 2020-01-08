@@ -1,0 +1,23 @@
+{
+  "name": "rpi-mfrc522-nodejs",
+  "version": "1.0.0",
+  "description": "Read RFID cards on Raspberry Pi with NodeJS",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoolCyberBrain/RPi-MFRC522-nodejs.git"
+  },
+  "author": {
+    "name": "Calvin Liang",
+    "url": "https://calvin.sh"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CoolCyberBrain/RPi-MFRC522-nodejs/issues"
+  },
+  "homepage": "https://github.com/CoolCyberBrain/RPi-MFRC522-nodejs#readme",
+  "dependencies": {
+    "node-addon-api": "^2.0.0"
+  }
+}
