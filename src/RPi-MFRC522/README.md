@@ -25,6 +25,10 @@ Has the same methods, signatures, functions, and limitations as https://github.c
    Connect the SCK pin on the MFRC522 to the SCLK pin (23) on the Raspberry Pi.  
    Connect the SDA pin on the MFRC522 to any GPIO pin on the Raspberry Pi.  
    (GPIO pins are just pins that are not ground or power) 
+
+### Endable SPI on Raspberry Pi
+https://www.raspberrypi-spy.co.uk/2014/08/enabling-the-spi-interface-on-the-raspberry-pi/
+
 ### Install the bcm2835 library
 1. Download the latest version of the bcm2835 library on http://www.airspayce.com/mikem/bcm2835/
 
