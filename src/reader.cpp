@@ -11,7 +11,7 @@
 using namespace std;
 using namespace Napi;
 
-string uint8ArrayToHexString(const uint8_t *v, const size_t s) {
+string uint8ArrayToHexString(const uint8_t* v, const size_t s) {
   stringstream ss;
 
   ss << hex << setfill('0');
@@ -22,27 +22,52 @@ string uint8ArrayToHexString(const uint8_t *v, const size_t s) {
 
   string result = ss.str().erase(0, 1);  // remove first "-"
 
-  for (auto &c : result)  // to uppercase
+  for (auto& c : result)  // to uppercase
     c = toupper(c);
 
   return result;
 }
 
-class RfidLoopWorder : public AsyncProgressWorker<Array> {
+Array vectorToNapiArray(Napi::Env env, const vector<string>& data) {
+  size_t size = data.size();
+  Array napiData = Array::New(env, size);
+
+  for (size_t i = 0; i < size; i++) {
+    if (data[i] == "")
+      napiData[i] = env.Null();
+    else
+      napiData[i] = String::New(env, data[i]);
+  }
+
+  return napiData;
+}
+
+class RfidLoopWorder : public AsyncProgressWorker<vector<string>> {
  public:
   RfidLoopWorder(Array data, Function cb) : AsyncProgressWorker(cb) {
     for (size_t i = 0; i < data.Length(); i++) {
-      Array pins = data[i].As<Array>();
+      Array pins = ((Value)data[i]).As<Array>();
 
-      readers.push_back(MFRC522(pins[0], pins[1]));
+      Value ssPinValue = pins[(uint32_t)0];
+      Value rstPinValue = pins[(uint32_t)1];
+
+      int ssPin = ssPinValue.As<Number>();
+      int rstPin = rstPinValue.As<Number>();
+
+      MFRC522 mfrc522 = MFRC522(ssPin, rstPin);
+
+      mfrc522.PCD_Init();
+
+      readers.push_back(mfrc522);
     }
   }
 
  protected:
-  void Execute(const ExecutionProgress &cb) override {
+  void Execute(const ExecutionProgress& cb) override {
     size_t readerSize = readers.size();
+
     while (1) {
-      Array uidStrings = Array::New(Env(), readerSize);
+      vector<string> uidStrings;
 
       for (size_t reader = 0; reader < readerSize; reader++) {
         // Look for new cards
@@ -54,36 +79,43 @@ class RfidLoopWorder : public AsyncProgressWorker<Array> {
           string uidString = uint8ArrayToHexString(readers[reader].uid.uidByte,
                                                    readers[reader].uid.size);
 
-          uidStrings[reader] = String::New(Env(), uidString);
+          uidStrings.push_back(uidString);
         } else {
-          uidStrings[reader] = Env::Null();
+          string empty;
+
+          uidStrings.push_back(empty);
         }
         readers[reader].PCD_AntennaOff();
 
         bcm2835_delay(50);
       }
 
-      cb.Send(&uidStrings, 1);
+      if (prevUidStrings != uidStrings)
+        cb.Send(&uidStrings, 1);
+
+      prevUidStrings = uidStrings;
     }
   }
 
-  void OnProgress(const Array *data, size_t count) override {
-    HandleScope scope(Env());
-    Callback().Call({data});
+  void OnProgress(const vector<string>* data, size_t count) override {
+    Array napiData = vectorToNapiArray(Env(), *data);
+
+    Callback().Call({napiData});
   }
 
   void OnOK() override {}
 
  private:
   vector<MFRC522> readers;
+  vector<string> prevUidStrings;
 };
 
-void Method(const CallbackInfo &info) {
+void Method(const CallbackInfo& info) {
   Array data = info[0].As<Array>();
   Function cb = info[1].As<Function>();
 
-  if (data.length() > 0) {
-    RfidLoopWorder *worker = new RfidLoopWorder(data, cb);
+  if (data.Length() > 0) {
+    RfidLoopWorder* worker = new RfidLoopWorder(data, cb);
     worker->Queue();
   }
 }
