@@ -12,13 +12,21 @@
         "-std=c++17"
       ],
       "sources": [
-        "<!@(node -p \"require('fs').readdirSync('./src').map(f=>'src/'+f).join(' ')\")",
-        "<!@(node -p \"require('fs').readdirSync('./src/RPi-MFRC522/src').map(f=>'src/'+f).join(' ')\")",
-        "<!@(node -p \"require('fs').readdirSync('./src/RPi-MFRC522/src/RPi-Arduino-SPI').map(f=>'src/'+f).join(' ')\")"
+        "./src/reader.cpp",
+
+        "./src/RPi-MFRC522/src/MFRC522.cpp",
+        "./src/RPi-MFRC522/src/MFRC522Extended.cpp",
+
+
+        "./src/RPi-MFRC522/src/RPi-Arduino-SPI/Arduino.cpp",
+         "./src/RPi-MFRC522/src/RPi-Arduino-SPI/Serial.cpp",
       ],
       "include_dirs": [
-        "<!@(node -p \"require('node-addon-api').include\")"
+        "<!@(node -p \"require('node-addon-api').include\")",
+        "./src/RPi-MFRC522/src",
+        "./src/RPi-MFRC522/src/RPi-Arduino-SPI"
       ],
+      'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       "libraries": [
         "-lbcm2835"
       ]
