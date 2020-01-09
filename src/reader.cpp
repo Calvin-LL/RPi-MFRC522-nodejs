@@ -93,4 +93,4 @@ Object Init(Env env, Object exports) {
   return exports;
 }
 
-NODE_API_MODULE(hello, Init);
+NODE_API_MODULE(reader, Init);
