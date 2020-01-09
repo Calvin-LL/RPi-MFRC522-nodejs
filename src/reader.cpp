@@ -45,6 +45,7 @@ Array vectorToNapiArray(Napi::Env env, const vector<string>& data) {
 class RfidLoopWorder : public AsyncProgressWorker<vector<string>> {
  public:
   RfidLoopWorder(Array data, Function cb) : AsyncProgressWorker(cb) {
+    // Process parameters
     for (size_t i = 0; i < data.Length(); i++) {
       Array pins = ((Value)data[i]).As<Array>();
 
@@ -66,6 +67,7 @@ class RfidLoopWorder : public AsyncProgressWorker<vector<string>> {
   void Execute(const ExecutionProgress& cb) override {
     size_t readerSize = readers.size();
 
+    // Execution loop
     while (1) {
       vector<string> uidStrings;
 
@@ -91,7 +93,7 @@ class RfidLoopWorder : public AsyncProgressWorker<vector<string>> {
       }
 
       if (prevUidStrings != uidStrings)
-        cb.Send(&uidStrings, 1);
+        cb.Send(&uidStrings, 1);  // Send data to OnProgress
 
       prevUidStrings = uidStrings;
     }
@@ -100,7 +102,7 @@ class RfidLoopWorder : public AsyncProgressWorker<vector<string>> {
   void OnProgress(const vector<string>* data, size_t count) override {
     Array napiData = vectorToNapiArray(Env(), *data);
 
-    Callback().Call({napiData});
+    Callback().Call({napiData});  // Pass data to js
   }
 
   void OnOK() override {}
