@@ -1,4 +1,4 @@
-# MFRC522
+# RPi-MFRC522
 Raspberry Pi C++ library for MFRC522 and other RFID RC522 based modules.
 
 Read and write different types of Radio-Frequency IDentification (RFID) cards
