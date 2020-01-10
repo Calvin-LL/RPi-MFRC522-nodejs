@@ -4,6 +4,7 @@
   "description": "Read RFID cards on Raspberry Pi with NodeJS",
   "main": "index.js",
   "scripts": {},
+  "gypfile": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CoolCyberBrain/RPi-MFRC522-nodejs.git"
