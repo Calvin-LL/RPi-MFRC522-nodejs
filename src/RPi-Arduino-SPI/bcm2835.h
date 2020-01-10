@@ -193,84 +193,91 @@ typedef enum
     BCM2835_PAD_GROUP_GPIO_46_53 = 2
 } bcm2835PadGroup;
 
+// Taken from https://git.thijsdevries.net/FYS/L293/src/branch/master/node_modules/rpio/src/bcm2835.h
+// The official bcm2835.h seems to have missing pins
 typedef enum
 {
-    RPI_GPIO_P1_03 = 0,
-    RPI_GPIO_P1_05 = 1,
-    RPI_GPIO_P1_07 = 4,
-    RPI_GPIO_P1_08 = 14,
-    RPI_GPIO_P1_10 = 15,
-    RPI_GPIO_P1_11 = 17,
-    RPI_GPIO_P1_12 = 18,
-    RPI_GPIO_P1_13 = 21,
-    RPI_GPIO_P1_15 = 22,
-    RPI_GPIO_P1_16 = 23,
-    RPI_GPIO_P1_18 = 24,
-    RPI_GPIO_P1_19 = 10,
-    RPI_GPIO_P1_21 = 9,
-    RPI_GPIO_P1_22 = 25,
-    RPI_GPIO_P1_23 = 11,
-    RPI_GPIO_P1_24 = 8,
-    RPI_GPIO_P1_26 = 7,
+    RPI_GPIO_P1_03        =  0,  /*!< Version 1, Pin P1-03 */
+    RPI_GPIO_P1_05        =  1,  /*!< Version 1, Pin P1-05 */
+    RPI_GPIO_P1_07        =  4,  /*!< Version 1, Pin P1-07 */
+    RPI_GPIO_P1_08        = 14,  /*!< Version 1, Pin P1-08, defaults to alt function 0 UART0_TXD */
+    RPI_GPIO_P1_10        = 15,  /*!< Version 1, Pin P1-10, defaults to alt function 0 UART0_RXD */
+    RPI_GPIO_P1_11        = 17,  /*!< Version 1, Pin P1-11 */
+    RPI_GPIO_P1_12        = 18,  /*!< Version 1, Pin P1-12, can be PWM channel 0 in ALT FUN 5 */
+    RPI_GPIO_P1_13        = 21,  /*!< Version 1, Pin P1-13 */
+    RPI_GPIO_P1_15        = 22,  /*!< Version 1, Pin P1-15 */
+    RPI_GPIO_P1_16        = 23,  /*!< Version 1, Pin P1-16 */
+    RPI_GPIO_P1_18        = 24,  /*!< Version 1, Pin P1-18 */
+    RPI_GPIO_P1_19        = 10,  /*!< Version 1, Pin P1-19, MOSI when SPI0 in use */
+    RPI_GPIO_P1_21        =  9,  /*!< Version 1, Pin P1-21, MISO when SPI0 in use */
+    RPI_GPIO_P1_22        = 25,  /*!< Version 1, Pin P1-22 */
+    RPI_GPIO_P1_23        = 11,  /*!< Version 1, Pin P1-23, CLK when SPI0 in use */
+    RPI_GPIO_P1_24        =  8,  /*!< Version 1, Pin P1-24, CE0 when SPI0 in use */
+    RPI_GPIO_P1_26        =  7,  /*!< Version 1, Pin P1-26, CE1 when SPI0 in use */
+
     /* RPi Version 2 */
-    RPI_V2_GPIO_P1_03 = 2,
-    RPI_V2_GPIO_P1_05 = 3,
-    RPI_V2_GPIO_P1_07 = 4,
-    RPI_V2_GPIO_P1_08 = 14,
-    RPI_V2_GPIO_P1_10 = 15,
-    RPI_V2_GPIO_P1_11 = 17,
-    RPI_V2_GPIO_P1_12 = 18,
-    RPI_V2_GPIO_P1_13 = 27,
-    RPI_V2_GPIO_P1_15 = 22,
-    RPI_V2_GPIO_P1_16 = 23,
-    RPI_V2_GPIO_P1_18 = 24,
-    RPI_V2_GPIO_P1_19 = 10,
-    RPI_V2_GPIO_P1_21 = 9,
-    RPI_V2_GPIO_P1_22 = 25,
-    RPI_V2_GPIO_P1_23 = 11,
-    RPI_V2_GPIO_P1_24 = 8,
-    RPI_V2_GPIO_P1_26 = 7,
-    RPI_V2_GPIO_P1_29 = 5,
-    RPI_V2_GPIO_P1_31 = 6,
-    RPI_V2_GPIO_P1_32 = 12,
-    RPI_V2_GPIO_P1_33 = 13,
-    RPI_V2_GPIO_P1_35 = 19,
-    RPI_V2_GPIO_P1_36 = 16,
-    RPI_V2_GPIO_P1_37 = 26,
-    RPI_V2_GPIO_P1_38 = 20,
-    RPI_V2_GPIO_P1_40 = 21,
+    RPI_V2_GPIO_P1_03     =  2,  /*!< Version 2, Pin P1-03 */
+    RPI_V2_GPIO_P1_05     =  3,  /*!< Version 2, Pin P1-05 */
+    RPI_V2_GPIO_P1_07     =  4,  /*!< Version 2, Pin P1-07 */
+    RPI_V2_GPIO_P1_08     = 14,  /*!< Version 2, Pin P1-08, defaults to alt function 0 UART0_TXD */
+    RPI_V2_GPIO_P1_10     = 15,  /*!< Version 2, Pin P1-10, defaults to alt function 0 UART0_RXD */
+    RPI_V2_GPIO_P1_11     = 17,  /*!< Version 2, Pin P1-11 */
+    RPI_V2_GPIO_P1_12     = 18,  /*!< Version 2, Pin P1-12, can be PWM channel 0 in ALT FUN 5 */
+    RPI_V2_GPIO_P1_13     = 27,  /*!< Version 2, Pin P1-13 */
+    RPI_V2_GPIO_P1_15     = 22,  /*!< Version 2, Pin P1-15 */
+    RPI_V2_GPIO_P1_16     = 23,  /*!< Version 2, Pin P1-16 */
+    RPI_V2_GPIO_P1_18     = 24,  /*!< Version 2, Pin P1-18 */
+    RPI_V2_GPIO_P1_19     = 10,  /*!< Version 2, Pin P1-19, MOSI when SPI0 in use */
+    RPI_V2_GPIO_P1_21     =  9,  /*!< Version 2, Pin P1-21, MISO when SPI0 in use */
+    RPI_V2_GPIO_P1_22     = 25,  /*!< Version 2, Pin P1-22 */
+    RPI_V2_GPIO_P1_23     = 11,  /*!< Version 2, Pin P1-23, CLK when SPI0 in use */
+    RPI_V2_GPIO_P1_24     =  8,  /*!< Version 2, Pin P1-24, CE0 when SPI0 in use */
+    RPI_V2_GPIO_P1_26     =  7,  /*!< Version 2, Pin P1-26, CE1 when SPI0 in use */
+    RPI_V2_GPIO_P1_27     =  0,  /*!< Version 2, Pin P1-27 */
+    RPI_V2_GPIO_P1_28     =  1,  /*!< Version 2, Pin P1-28 */
+    RPI_V2_GPIO_P1_29     =  5,  /*!< Version 2, Pin P1-29 */
+    RPI_V2_GPIO_P1_31     =  6,  /*!< Version 2, Pin P1-31 */
+    RPI_V2_GPIO_P1_32     = 12,  /*!< Version 2, Pin P1-32 */
+    RPI_V2_GPIO_P1_33     = 13,  /*!< Version 2, Pin P1-33 */
+    RPI_V2_GPIO_P1_35     = 19,  /*!< Version 2, Pin P1-35 */
+    RPI_V2_GPIO_P1_36     = 16,  /*!< Version 2, Pin P1-36 */
+    RPI_V2_GPIO_P1_37     = 26,  /*!< Version 2, Pin P1-37 */
+    RPI_V2_GPIO_P1_38     = 20,  /*!< Version 2, Pin P1-38 */
+    RPI_V2_GPIO_P1_40     = 21,  /*!< Version 2, Pin P1-40 */
+
     /* RPi Version 2, new plug P5 */
-    RPI_V2_GPIO_P5_03 = 28,
-    RPI_V2_GPIO_P5_04 = 29,
-    RPI_V2_GPIO_P5_05 = 30,
-    RPI_V2_GPIO_P5_06 = 31,
+    RPI_V2_GPIO_P5_03     = 28,  /*!< Version 2, Pin P5-03 */
+    RPI_V2_GPIO_P5_04     = 29,  /*!< Version 2, Pin P5-04 */
+    RPI_V2_GPIO_P5_05     = 30,  /*!< Version 2, Pin P5-05 */
+    RPI_V2_GPIO_P5_06     = 31,  /*!< Version 2, Pin P5-06 */
+
     /* RPi B+ J8 header, also RPi 2 40 pin GPIO header */
-    RPI_BPLUS_GPIO_J8_03 = 2,
-    RPI_BPLUS_GPIO_J8_05 = 3,
-    RPI_BPLUS_GPIO_J8_07 = 4,
-    RPI_BPLUS_GPIO_J8_08 = 14,
-    RPI_BPLUS_GPIO_J8_10 = 15,
-    RPI_BPLUS_GPIO_J8_11 = 17,
-    RPI_BPLUS_GPIO_J8_12 = 18,
-    RPI_BPLUS_GPIO_J8_13 = 27,
-    RPI_BPLUS_GPIO_J8_15 = 22,
-    RPI_BPLUS_GPIO_J8_16 = 23,
-    RPI_BPLUS_GPIO_J8_18 = 24,
-    RPI_BPLUS_GPIO_J8_19 = 10,
-    RPI_BPLUS_GPIO_J8_21 = 9,
-    RPI_BPLUS_GPIO_J8_22 = 25,
-    RPI_BPLUS_GPIO_J8_23 = 11,
-    RPI_BPLUS_GPIO_J8_24 = 8,
-    RPI_BPLUS_GPIO_J8_26 = 7,
-    RPI_BPLUS_GPIO_J8_29 = 5,
-    RPI_BPLUS_GPIO_J8_31 = 6,
-    RPI_BPLUS_GPIO_J8_32 = 12,
-    RPI_BPLUS_GPIO_J8_33 = 13,
-    RPI_BPLUS_GPIO_J8_35 = 19,
-    RPI_BPLUS_GPIO_J8_36 = 16,
-    RPI_BPLUS_GPIO_J8_37 = 26,
-    RPI_BPLUS_GPIO_J8_38 = 20,
-    RPI_BPLUS_GPIO_J8_40 = 21
+    RPI_BPLUS_GPIO_J8_03     =  2,  /*!< B+, Pin J8-03 */
+    RPI_BPLUS_GPIO_J8_05     =  3,  /*!< B+, Pin J8-05 */
+    RPI_BPLUS_GPIO_J8_07     =  4,  /*!< B+, Pin J8-07 */
+    RPI_BPLUS_GPIO_J8_08     = 14,  /*!< B+, Pin J8-08, defaults to alt function 0 UART0_TXD */
+    RPI_BPLUS_GPIO_J8_10     = 15,  /*!< B+, Pin J8-10, defaults to alt function 0 UART0_RXD */
+    RPI_BPLUS_GPIO_J8_11     = 17,  /*!< B+, Pin J8-11 */
+    RPI_BPLUS_GPIO_J8_12     = 18,  /*!< B+, Pin J8-12, can be PWM channel 0 in ALT FUN 5 */
+    RPI_BPLUS_GPIO_J8_13     = 27,  /*!< B+, Pin J8-13 */
+    RPI_BPLUS_GPIO_J8_15     = 22,  /*!< B+, Pin J8-15 */
+    RPI_BPLUS_GPIO_J8_16     = 23,  /*!< B+, Pin J8-16 */
+    RPI_BPLUS_GPIO_J8_18     = 24,  /*!< B+, Pin J8-18 */
+    RPI_BPLUS_GPIO_J8_19     = 10,  /*!< B+, Pin J8-19, MOSI when SPI0 in use */
+    RPI_BPLUS_GPIO_J8_21     =  9,  /*!< B+, Pin J8-21, MISO when SPI0 in use */
+    RPI_BPLUS_GPIO_J8_22     = 25,  /*!< B+, Pin J8-22 */
+    RPI_BPLUS_GPIO_J8_23     = 11,  /*!< B+, Pin J8-23, CLK when SPI0 in use */
+    RPI_BPLUS_GPIO_J8_24     =  8,  /*!< B+, Pin J8-24, CE0 when SPI0 in use */
+    RPI_BPLUS_GPIO_J8_26     =  7,  /*!< B+, Pin J8-26, CE1 when SPI0 in use */
+    RPI_BPLUS_GPIO_J8_29     =  5,  /*!< B+, Pin J8-29,  */
+    RPI_BPLUS_GPIO_J8_31     =  6,  /*!< B+, Pin J8-31,  */
+    RPI_BPLUS_GPIO_J8_32     = 12,  /*!< B+, Pin J8-32,  */
+    RPI_BPLUS_GPIO_J8_33     = 13,  /*!< B+, Pin J8-33,  */
+    RPI_BPLUS_GPIO_J8_35     = 19,  /*!< B+, Pin J8-35,  */
+    RPI_BPLUS_GPIO_J8_36     = 16,  /*!< B+, Pin J8-36,  */
+    RPI_BPLUS_GPIO_J8_37     = 26,  /*!< B+, Pin J8-37,  */
+    RPI_BPLUS_GPIO_J8_38     = 20,  /*!< B+, Pin J8-38,  */
+    RPI_BPLUS_GPIO_J8_40     = 21   /*!< B+, Pin J8-40,  */
 } RPiGPIOPin;
 
 /* Defines for AUX
