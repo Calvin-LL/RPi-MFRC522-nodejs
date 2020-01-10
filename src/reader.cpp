@@ -17,10 +17,10 @@ string uint8ArrayToHexString(const uint8_t* v, const size_t s) {
   ss << hex << setfill('0');
 
   for (size_t i = 0; i < s; i++) {
-    ss << "-" << hex << setw(2) << static_cast<int>(v[i]);
+    ss << ":" << hex << setw(2) << static_cast<int>(v[i]);
   }
 
-  string result = ss.str().erase(0, 1);  // remove first "-"
+  string result = ss.str().erase(0, 1);  // remove first ":"
 
   for (auto& c : result)  // to uppercase
     c = toupper(c);
