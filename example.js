@@ -10,6 +10,6 @@ const readerPins = [
 
 reader.onRfidChange(readerPins, data => {
   // data are of the format [UID, UID], if no card is present, null is returned instead of the UID
-  // example: ["09-C4-B1-A3", null], reader 0 reads a card with uid 09-C4-B1-A3, no card read by reader 1
+  // example: ["09:C4:B1:A3", null], reader 0 reads a card with uid 09-C4-B1-A3, no card read by reader 1
   console.log(data);
 });
