@@ -70,7 +70,7 @@ reader.onRfidChange(readerPins, data => {
    Connect the MOSI pin on the MFRC522 to the MOSI pin (21) on the Raspberry Pi.  
    Connect the SCK pin on the MFRC522 to the SCLK pin (23) on the Raspberry Pi.  
    Connect the SDA pin on the MFRC522 to any GPIO pin on the Raspberry Pi.  
-   (GPIO pins are just pins that are not ground or power)
+   (GPIO pins can be any pins that are not ground or power)
 
 ### Try the example
 
