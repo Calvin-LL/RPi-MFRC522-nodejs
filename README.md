@@ -4,6 +4,8 @@ RPi-MFRC522 for nodejs
 
 Read UIDs from your RFID cards with MFRC522 readers on Raspberry Pi. Works with multiple readers.
 
+**You'll need to run your code with `sudo`, otherwise it'll crash.**
+
 If you want to read more than the UID, change `./src/reader.cpp` according to https://github.com/CoolCyberBrain/RPi-MFRC522 and https://github.com/miguelbalboa/rfid (The Arduino rfid library)
 
 ## Install
